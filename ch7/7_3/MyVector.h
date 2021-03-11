@@ -18,6 +18,7 @@ class MyVector {
     const T& back();
 
     void push_back(T&);
+    void pop_back();
     void insert(size_t pos, T&);
     const T* erase(const T*);
     void clear();
@@ -88,4 +89,17 @@ const T& MyVector<T, N>::front() {
 template <typename T, size_t N>
 const T& MyVector<T, N>::back() {
     return this->data[this->flag_back];
+}
+
+template <typename T, size_t N>
+void MyVector<T, N>::push_back(T& temp) {
+    this->flag_back += 1;
+    this->data[this->flag_back] = temp;
+}
+
+// doing
+template <typename T, size_t N>
+void MyVector<T, N>::pop_back() {
+    this->data[this->flag_back] = 0;
+    this->flag_back -= 1;
 }
