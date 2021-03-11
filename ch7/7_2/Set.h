@@ -18,7 +18,8 @@ class Set {
     Set common(const Set<T>& s);
     Set sum(const Set<T>& s);
     Set& operator=(const Set<T>& s);
-    friend ostream& operator<<(ostream& os, const Set<T>& s);
+    template<typename F>
+    friend ostream& operator<<(ostream& os, const Set<F>& s);
 
     // oop
     typename vector<T>::iterator find(const T& t);
