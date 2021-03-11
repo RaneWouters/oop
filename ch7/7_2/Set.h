@@ -103,7 +103,7 @@ typename vector<T>::iterator Set<T>::find(const T& t) {
         if(*it == t)    return it;
     }
     cout << "can not find!" << endl;
-    return this->m_elems.end();
+    return typename vector<T>::iterator(0);
 }
 
 template <typename T>

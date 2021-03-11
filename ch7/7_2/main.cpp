@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 #include "Set.h"
 using namespace std;
 
@@ -11,6 +12,11 @@ int main() {
         set_user.insert(temp);
         cin >> temp;
     }
-    set_user.clear();
-    cout << *set_user.find(2) << endl;
+//    set_user.clear();
+
+    vector<int>::iterator it = set_user.find(2);
+    if(it != vector<int>::iterator(0)){
+        cout << *it << endl;
+    }
+    return 0;
 }
