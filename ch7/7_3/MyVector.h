@@ -35,8 +35,9 @@ class MyVector {
 template <typename T, size_t N>
 MyVector<T, N>::MyVector(const std::initializer_list<T>& temp) {
     size_t m = temp.size() < N ? temp.size() : N;
+    auto it = temp.begin();
     for (size_t t = 0; t < m; ++t) {
-        this->data[t] = temp[t];
+        this->data[t] = *(temp.begin()+t);
     }
     this->flag_back = m - 1;
 }
@@ -45,7 +46,7 @@ template <typename T, size_t N>
 MyVector<T, N>::MyVector(const MyVector<T, N>& temp) {
     size_t m = temp.size();
     for (size_t t = 0; t < m; ++t) {
-        this->data[t] = temp[t];
+        this->data[t] = temp.data[t];
     }
     this->flag_back = m - 1;
 }
@@ -68,18 +69,13 @@ const size_t MyVector<T, N>::size() {
 
 template <typename T, size_t N>
 const T& MyVector<T, N>::operator[](const size_t& location) {
-    if (location >= N) {
-        cout << "out of range!" << endl;
-        return nullptr;
-    }
     return this->data[location];
 }
 
 template <typename T, size_t N>
 const T& MyVector<T, N>::at(const size_t& location) {
-    if (location >= N) {
-        cout << "out of range!" << endl;
-        return nullptr;
+    if (location >= this->size()) {
+        throw -1;
     }
     return this->data[location];
 }
