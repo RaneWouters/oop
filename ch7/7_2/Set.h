@@ -24,6 +24,8 @@ class Set {
     // oop
     typename vector<T>::iterator find(const T& t);
     void clear();
+    const int number() const;
+    friend void swap(Set<T> lhs, Set<T> rhs);
 };
 
 template <typename T>
@@ -112,3 +114,15 @@ void Set<T>::clear() {
         this->m_elems.erase(it);
     }
 }
+
+template <typename T>
+const int Set<T>::number() const {
+    return this->m_elems.size();
+}
+template<typename T>
+void swap(Set<T> lhs, Set<T> rhs) {
+    vector<T> temp = lhs.m_elems;
+    lhs.m_elems = rhs.m_elems;
+    rhs.m_elems = temp;
+}
+
