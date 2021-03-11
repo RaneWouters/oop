@@ -1,6 +1,12 @@
 #include <iostream>
 #include <vector>
 using namespace std;
+
+template <typename T>
+class Set;
+template <typename T>
+void swap(Set<T>&, Set<T>&);
+
 template <typename T>
 class Set {
    private:
@@ -22,10 +28,11 @@ class Set {
     friend ostream& operator<<(ostream& os, const Set<F>& s);
 
     // oop
-    typename vector<T>::iterator find(const T& t);
+    const typename vector<T>::iterator find(const T& t);
     void clear();
     const int number() const;
-    friend void swap(Set<T> lhs, Set<T> rhs);
+    template<typename F>
+    friend void swap(Set<F>& lhs, Set<F>& rhs);
 };
 
 template <typename T>
@@ -100,7 +107,7 @@ Set<T> Set<T>::sum(const Set<T>& s) {
 }
 
 template <typename T>
-typename vector<T>::iterator Set<T>::find(const T& t) {
+const typename vector<T>::iterator Set<T>::find(const T& t) {
     for(auto it = this->m_elems.begin(); it != this->m_elems.end(); ++it) {
         if(*it == t)    return it;
     }
@@ -120,7 +127,7 @@ const int Set<T>::number() const {
     return this->m_elems.size();
 }
 template<typename T>
-void swap(Set<T> lhs, Set<T> rhs) {
+void swap(Set<T>& lhs, Set<T>& rhs) {
     vector<T> temp = lhs.m_elems;
     lhs.m_elems = rhs.m_elems;
     rhs.m_elems = temp;
