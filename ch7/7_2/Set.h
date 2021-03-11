@@ -23,6 +23,7 @@ class Set {
 
     // oop
     typename vector<T>::iterator find(const T& t);
+    void clear();
 };
 
 template <typename T>
@@ -103,4 +104,11 @@ typename vector<T>::iterator Set<T>::find(const T& t) {
     }
     cout << "can not find!" << endl;
     return this->m_elems.end();
+}
+
+template <typename T>
+void Set<T>::clear() {
+    for(auto it = this->m_elems.begin(); it != this->m_elems.end(); ) {
+        this->m_elems.erase(it);
+    }
 }

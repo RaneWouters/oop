@@ -11,5 +11,6 @@ int main() {
         set_user.insert(temp);
         cin >> temp;
     }
+    set_user.clear();
     cout << *set_user.find(2) << endl;
 }
