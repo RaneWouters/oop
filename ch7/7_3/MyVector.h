@@ -153,11 +153,11 @@ void MyVector<T, N>::QuickSort(const size_t& begin, const size_t& end) {
         size_t j = end;
 
         while (i < j) {
-            while (j > i && this->data[j] < key) {
+            while ((i < j) && (this->data[j] >= key)) {
                 --j;
             }
             this->data[i] = this->data[j];
-            while (i < j && this->data[i] < key) {
+            while ((i < j) && (this->data[i] <= key)) {
                 ++i;
             }
             this->data[j] = this->data[i];

@@ -2,7 +2,7 @@
 using namespace std;
 
 int main() {
-    MyVector<int, 1000> vec = {1, 3, 6, 9, 19, 2, 3};
+    MyVector<int, 1000> vec = {3, 6, 9, 19, 2, 3};
     //    cout << vec.size() << endl;
     //    cout << vec[1] << endl;
     //    try {
