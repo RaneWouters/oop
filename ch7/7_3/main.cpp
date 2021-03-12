@@ -17,6 +17,8 @@ int main() {
     vec.insert(2, 12);
     try {
         cout << vec.erase(3) << endl;
+        cout << vec.erase(2) << endl;
+        cout << vec.size() << endl;
     } catch (int) {
         cout << "can not erase!" << endl;
     }
