@@ -24,14 +24,14 @@ class Set {
     Set common(const Set<T>& s);
     Set sum(const Set<T>& s);
     Set& operator=(const Set<T>& s);
-    template<typename F>
+    template <typename F>
     friend ostream& operator<<(ostream& os, const Set<F>& s);
 
     // oop
     const typename vector<T>::iterator find(const T& t);
     void clear();
     const int number() const;
-    template<typename F>
+    template <typename F>
     friend void swap(Set<F>& lhs, Set<F>& rhs);
 };
 
@@ -108,8 +108,9 @@ Set<T> Set<T>::sum(const Set<T>& s) {
 
 template <typename T>
 const typename vector<T>::iterator Set<T>::find(const T& t) {
-    for(auto it = this->m_elems.begin(); it != this->m_elems.end(); ++it) {
-        if(*it == t)    return it;
+    for (auto it = this->m_elems.begin(); it != this->m_elems.end(); ++it) {
+        if (*it == t)
+            return it;
     }
     cout << "can not find!" << endl;
     return typename vector<T>::iterator(0);
@@ -117,7 +118,7 @@ const typename vector<T>::iterator Set<T>::find(const T& t) {
 
 template <typename T>
 void Set<T>::clear() {
-    for(auto it = this->m_elems.begin(); it != this->m_elems.end(); ) {
+    for (auto it = this->m_elems.begin(); it != this->m_elems.end();) {
         this->m_elems.erase(it);
     }
 }
@@ -126,7 +127,7 @@ template <typename T>
 const int Set<T>::number() const {
     return this->m_elems.size();
 }
-template<typename T>
+template <typename T>
 void swap(Set<T>& lhs, Set<T>& rhs) {
     vector<T> temp = lhs.m_elems;
     lhs.m_elems = rhs.m_elems;
