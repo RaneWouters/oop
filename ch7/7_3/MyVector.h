@@ -24,9 +24,12 @@ class MyVector {
     const T erase(const T&);
     void clear();
 
-    void sort();
+    void QuickSort(const size_t&, const size_t&);
 
     const T* binary_search(const T&);
+
+    // additional
+    void show();
 
    private:
     T data[N] = {0};
@@ -39,7 +42,7 @@ MyVector<T, N>::MyVector(const std::initializer_list<T>& temp) {
     size_t m = temp.size() < N ? temp.size() : N;
     auto it = temp.begin();
     for (size_t t = 0; t < m; ++t) {
-        this->data[t] = *(temp.begin()+t);
+        this->data[t] = *(temp.begin() + t);
     }
     this->flag_back = m - 1;
 }
@@ -66,6 +69,9 @@ const MyVector<T, N> MyVector<T, N>::operator=(const MyVector<T, N>& temp) {
 
 template <typename T, size_t N>
 const size_t MyVector<T, N>::size() {
+    if (!this->flag_back) {
+        return 0;
+    }
     return (this->flag_back - this->flag_front + 1);
 }
 
@@ -106,27 +112,66 @@ void MyVector<T, N>::pop_back() {
 
 template <typename T, size_t N>
 void MyVector<T, N>::insert(const size_t& pos, const T& temp) {
-    if(this->size() >= N) {
+    if (this->size() >= N) {
         cout << "can not insert!" << endl;
-        return ;
+        return;
     }
     ++this->flag_back;
-    for(size_t loc = this->flag_back; loc != pos; --loc) {
-        this->data[loc] = this->data[loc-1]; 
+    for (size_t loc = this->flag_back; loc != pos; --loc) {
+        this->data[loc] = this->data[loc - 1];
     }
     this->data[pos] = temp;
 }
-    
+
 template <typename T, size_t N>
-const T MyVector<T,N>::erase(const T& pos) {
-    if(!this->size()) {
+const T MyVector<T, N>::erase(const T& pos) {
+    if (!this->size()) {
         cout << "can not erase!" << endl;
         throw -1;
     }
     T return_data = this->data[pos];
-    for(size_t loc = this->flag_back; loc != pos; --loc) {
-        this->data[loc - 1] = this->data[loc]; 
+    for (size_t loc = this->flag_back; loc != pos; --loc) {
+        this->data[loc - 1] = this->data[loc];
     }
     this->data[this->flag_back--] = 0;
     return return_data;
+}
+
+template <typename T, size_t N>
+void MyVector<T, N>::clear() {
+    while (this->flag_back) {
+        this->data[this->flag_back--] = 0;
+    }
+    this->data[this->flag_back] = 0;
+}
+
+template <typename T, size_t N>
+void MyVector<T, N>::QuickSort(const size_t& begin, const size_t& end) {
+    if (begin < end) {
+        T key = this->data[begin];
+        size_t i = begin;
+        size_t j = end;
+
+        while (i < j) {
+            while (j > i && this->data[j] < key) {
+                --j;
+            }
+            this->data[i] = this->data[j];
+            while (i < j && this->data[i] < key) {
+                ++i;
+            }
+            this->data[j] = this->data[i];
+        }
+        this->data[i] = key;
+        this->QuickSort(begin, i - 1);
+        this->QuickSort(i + 1, end);
+    }
+}
+
+template <typename T, size_t N>
+void MyVector<T, N>::show() {
+    for (size_t loc = this->flag_front; loc != this->size(); ++loc) {
+        cout << this->data[loc] << ' ';
+    }
+    cout << endl;
 }
