@@ -12,5 +12,9 @@ int main() {
     }
     cout << vec.front() << endl;
     cout << vec.back() << endl;
+    cout << endl;
+
+    vec.insert(2, 12);
+    cout << vec.erase(3) << endl;
     return 0;
 }

@@ -1,3 +1,4 @@
+#include <bits/c++config.h>
 #include <cstddef>
 #include <initializer_list>
 #include <iostream>
@@ -17,10 +18,10 @@ class MyVector {
     const T& front();
     const T& back();
 
-    void push_back(T&);
+    void push_back(const T&);
     void pop_back();
-    void insert(size_t pos, T&);
-    const T* erase(const T*);
+    void insert(const size_t&, const T&);
+    const T& erase(const T&);
     void clear();
 
     void sort();
@@ -92,14 +93,40 @@ const T& MyVector<T, N>::back() {
 }
 
 template <typename T, size_t N>
-void MyVector<T, N>::push_back(T& temp) {
+void MyVector<T, N>::push_back(const T& temp) {
     this->flag_back += 1;
     this->data[this->flag_back] = temp;
 }
 
-// doing
 template <typename T, size_t N>
 void MyVector<T, N>::pop_back() {
     this->data[this->flag_back] = 0;
     this->flag_back -= 1;
+}
+
+template <typename T, size_t N>
+void MyVector<T, N>::insert(const size_t& pos, const T& temp) {
+    if(this->size() >= N) {
+        cout << "can not insert!" << endl;
+        return ;
+    }
+    ++this->flag_back;
+    for(size_t loc = this->flag_back; loc != pos; --loc) {
+        this->data[loc] = this->data[loc-1]; 
+    }
+    this->data[pos] = temp;
+}
+    
+template <typename T, size_t N>
+const T& MyVector<T,N>::erase(const T& pos) {
+    if(!this->size()) {
+        cout << "can not erase!" << endl;
+        return nullptr;
+    }
+    T return_data = this->data[pos];
+    for(size_t loc = this->flag_back; loc != pos; --loc) {
+        this->data[loc - 1] = this->data[loc]; 
+    }
+    this->data[this->flag_back--] = 0;
+    return return_data;
 }
