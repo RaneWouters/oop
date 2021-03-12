@@ -30,5 +30,7 @@ int main() {
     vec.QuickSort(0, vec.size() - 1);
     vec.show();
 
+    //cout << vec.binary_search(6) << endl;
+
     return 0;
 }

@@ -25,8 +25,9 @@ class MyVector {
     void clear();
 
     void QuickSort(const size_t&, const size_t&);
+    mutable bool flag_sort = 0;
 
-    const T* binary_search(const T&);
+    const size_t binary_search(const T&);
 
     // additional
     void show();
@@ -165,6 +166,8 @@ void MyVector<T, N>::QuickSort(const size_t& begin, const size_t& end) {
         this->data[i] = key;
         this->QuickSort(begin, i - 1);
         this->QuickSort(i + 1, end);
+    } else {
+        this->flag_sort = 1;
     }
 }
 
@@ -174,4 +177,25 @@ void MyVector<T, N>::show() {
         cout << this->data[loc] << ' ';
     }
     cout << endl;
+}
+
+template <typename T, size_t N>
+const size_t MyVector<T, N>::binary_search(const T& temp) {
+    if (!this->flag_sort) {
+        this->QuickSort(0, this->size() - 1);
+    }
+    size_t i = 0;
+    size_t j = this->flag_back;
+    while (i < j) {
+        if(this->data[(i+j)/2] == temp) {
+            break;
+        }
+        else if(this->data[(i+j)/2] > temp) {
+            j = (i+j)/2;
+        }
+        else if(this->data[(i+j)/2] < temp) {
+            i = (i+j)/2;
+        }
+    }
+    return (i+j)/2;
 }
