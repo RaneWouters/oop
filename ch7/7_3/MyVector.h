@@ -21,7 +21,7 @@ class MyVector {
     void push_back(const T&);
     void pop_back();
     void insert(const size_t&, const T&);
-    const T& erase(const T&);
+    const T erase(const T&);
     void clear();
 
     void sort();
@@ -118,10 +118,10 @@ void MyVector<T, N>::insert(const size_t& pos, const T& temp) {
 }
     
 template <typename T, size_t N>
-const T& MyVector<T,N>::erase(const T& pos) {
+const T MyVector<T,N>::erase(const T& pos) {
     if(!this->size()) {
         cout << "can not erase!" << endl;
-        return nullptr;
+        throw -1;
     }
     T return_data = this->data[pos];
     for(size_t loc = this->flag_back; loc != pos; --loc) {
