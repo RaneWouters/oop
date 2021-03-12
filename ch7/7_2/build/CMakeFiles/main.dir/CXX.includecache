@@ -1,0 +1,32 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/ranewouters/workspace/oop/ch7/7_2/Complex.cpp
+Complex.h
+/home/ranewouters/workspace/oop/ch7/7_2/Complex.h
+
+/home/ranewouters/workspace/oop/ch7/7_2/Complex.h
+iostream
+-
+
+/home/ranewouters/workspace/oop/ch7/7_2/Set.h
+iostream
+-
+vector
+-
+
+/home/ranewouters/workspace/oop/ch7/7_2/main.cpp
+iostream
+-
+vector
+-
+Complex.h
+/home/ranewouters/workspace/oop/ch7/7_2/Complex.h
+Set.h
+/home/ranewouters/workspace/oop/ch7/7_2/Set.h
+
