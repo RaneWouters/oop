@@ -30,7 +30,14 @@ class Complex<double> {
     double real() { return this->m_real; }
     double imag() { return this->m_imag; }
 
+    friend ostream& operator<<(ostream& os, const Complex& rhs) {
+        os << "m_real = " << rhs.m_real << endl;
+        os << "m_imag = " << rhs.m_imag << endl;
+        return os;
+    };
+
    private:
     double m_real;
     double m_imag;
 };
+

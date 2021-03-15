@@ -1,6 +1,7 @@
 #include <iostream>
 #include <complex>
 #include <vector>
+#include <complex>
 #include "Complex.h"
 #include "Set.h"
 using namespace std;
