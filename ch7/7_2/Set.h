@@ -1,3 +1,4 @@
+#include <cstddef>
 #include <iostream>
 #include <vector>
 using namespace std;
@@ -30,7 +31,7 @@ class Set {
     // oop
     const typename vector<T>::iterator find(const T& t);
     void clear();
-    const int number() const;
+    const size_t number() const;
     template <typename F>
     friend void swap(Set<F>& lhs, Set<F>& rhs);
 };
@@ -47,9 +48,9 @@ template <typename T>
 bool Set<T>::is_elem(T c) {
     for (auto it = this->m_elems.begin(); it != this->m_elems.end(); ++it) {
         if (*it == c)
-            return true;
+            return 1;
     }
-    return false;
+    return 0;
 }
 
 template <typename T>
@@ -69,7 +70,7 @@ void Set<T>::erase(T c) {
 template <typename T>
 ostream& operator<<(ostream& os, const Set<T>& s) {
     for (auto it = s.m_elems.begin(); it != s.m_elems.end(); ++it) {
-        os << *it << ' ';
+        os << *it;
     }
     return os;
 }
@@ -79,6 +80,7 @@ Set<T>& Set<T>::operator=(const Set<T>& s) {
     this->m_elems = s.m_elems;
     return *this;
 }
+
 template <typename T>
 Set<T> Set<T>::common(const Set<T>& s) {
     Set temp;
@@ -93,15 +95,18 @@ Set<T> Set<T>::common(const Set<T>& s) {
 template <typename T>
 Set<T> Set<T>::sum(const Set<T>& s) {
     Set temp;
-    temp.m_elems = this->m_elems;
-    for (auto it = s.m_elems.begin(); it != s.m_elems.end(); ++it) {
+    temp.m_elems = s.m_elems;
+    for (auto it = this->m_elems.begin(); it != this->m_elems.end(); ++it) {
         int flag = 1;
-        for (auto q = this->m_elems.begin(); q != this->m_elems.end(); ++q) {
-            if (*it == *q)
+        for (auto q = s.m_elems.begin(); q != s.m_elems.end(); ++q) {
+            if (*it == *q) {
                 flag = 0;
+            }
         }
-        if (flag)
+        if (flag) {
             temp.m_elems.push_back(*it);
+            cout << *it <<endl;
+        }
     }
     return temp;
 }
@@ -124,7 +129,7 @@ void Set<T>::clear() {
 }
 
 template <typename T>
-const int Set<T>::number() const {
+const size_t Set<T>::number() const {
     return this->m_elems.size();
 }
 template <typename T>

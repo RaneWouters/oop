@@ -10,9 +10,6 @@ class Complex {
         : m_real(obj_real), m_imag(obj_imag) {}
     Complex(const Complex&) = default;
 
-    T real() { return this.m_real; }
-    T imag() { return this.m_imag; }
-
    private:
     T m_real;
     T m_imag;
@@ -30,14 +27,70 @@ class Complex<double> {
     double real() { return this->m_real; }
     double imag() { return this->m_imag; }
 
-    friend ostream& operator<<(ostream& os, const Complex& rhs) {
-        os << "m_real = " << rhs.m_real << endl;
-        os << "m_imag = " << rhs.m_imag << endl;
-        return os;
-    };
+    friend ostream& operator<<(ostream&, const Complex<double>&);
+    friend Complex<double> operator+(const Complex<double>&,
+                                     const Complex<double>&);
+    friend Complex<double> operator-(const Complex<double>&,
+                                     const Complex<double>&);
+    friend Complex<double> operator*(const Complex<double>&,
+                                     const Complex<double>&);
+    friend Complex<double> operator/(const Complex<double>&,
+                                     const Complex<double>&);
+    void operator=(const Complex<double>&);
+    bool operator==(const Complex<double>&);
+    bool operator!=(const Complex<double>&);
+    void set(const double&, const double&);
 
    private:
     double m_real;
     double m_imag;
 };
 
+ostream& operator<<(ostream& os, const Complex<double>& rhs) {
+    os << rhs.m_real << "+" << rhs.m_imag << "i" << endl;
+    return os;
+}
+Complex<double> operator+(const Complex<double>& a, const Complex<double>& b) {
+    Complex<double> Complex;
+    Complex.m_real = a.m_real + b.m_real;
+    Complex.m_imag = a.m_imag + b.m_imag;
+    return Complex;
+}
+Complex<double> operator-(const Complex<double>& a, const Complex<double>& b) {
+    Complex<double> Complex;
+    Complex.m_real = a.m_real - b.m_real;
+    Complex.m_imag = a.m_imag - b.m_imag;
+    return Complex;
+}
+Complex<double> operator*(const Complex<double>& a, const Complex<double>& b) {
+    Complex<double> Complex;
+    Complex.m_real = a.m_real * b.m_real - a.m_imag * b.m_imag;
+    Complex.m_imag = a.m_real * b.m_imag + a.m_imag * b.m_real;
+    return Complex;
+}
+Complex<double> operator/(const Complex<double>& a, const Complex<double>& b) {
+    Complex<double> Com;
+    Com.m_real = a.m_real * b.m_real + a.m_imag * b.m_imag;
+    Com.m_real /= (a.m_imag * a.m_imag + b.m_imag * b.m_imag);
+    Com.m_imag = a.m_imag * b.m_real - a.m_real * b.m_imag;
+    Com.m_imag /= (a.m_imag * a.m_imag + b.m_imag * b.m_imag);
+    return Com;
+}
+void Complex<double>::operator=(const Complex<double>& a) {
+    this->m_real = a.m_real;
+    this->m_imag = a.m_imag;
+}
+bool Complex<double>::operator==(const Complex<double>& a) {
+    if (this->m_real == a.m_real && this->m_imag == a.m_imag)
+        return 1;
+    return 0;
+}
+bool Complex<double>::operator!=(const Complex<double>& a) {
+    if (this->m_real == a.m_real && this->m_imag == a.m_imag)
+        return 0;
+    return 1;
+}
+void Complex<double>::set(const double& real, const double& imag) {
+    this->m_real = real;
+    this->m_imag = imag;
+}
