@@ -105,7 +105,6 @@ Set<T> Set<T>::sum(const Set<T>& s) {
         }
         if (flag) {
             temp.m_elems.push_back(*it);
-            cout << *it <<endl;
         }
     }
     return temp;
