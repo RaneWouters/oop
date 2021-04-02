@@ -1,4 +1,6 @@
 #include <bits/c++config.h>
+#include <math.h>
+#include <cmath>
 #include <cstddef>
 #include <iostream>
 #include <queue>
@@ -21,7 +23,7 @@ int level(const string& temp) {
     return -1;
 }
 
-void Init(char* temp) {
+queue<string> Init(char* temp) {
     size_t loc = 0;
     size_t count = 0;
     while (*(temp + loc) != '\0') {
@@ -64,7 +66,7 @@ void Init(char* temp) {
         }
         ++count;
     }
-    cout << "count" << count << endl;
+    //    cout << "count" << count << endl;
     string* middle = new string[count]();
     loc = 0;
     size_t string_loc = 0;
@@ -129,15 +131,15 @@ void Init(char* temp) {
             }
         }
     }
-    for (int q = 0; q < string_loc; ++q) {
-        cout << middle[q] << endl;
-    }
-    cout << "string_loc" << string_loc << endl;
+    //    for (int q = 0; q < string_loc; ++q) {
+    //        cout << middle[q] << endl;
+    //    }
+    //    cout << "string_loc" << string_loc << endl;
 
     queue<string> RP;
     stack<string> RP_sign;
     for (int q = 0; q < string_loc; ++q) {
-        cout << q << endl;
+        //        cout << q << endl;
         if (*middle[q].begin() >= '0' && *middle[q].begin() <= '9') {
             RP.push(middle[q]);
         } else if (middle[q] == "(") {
@@ -164,12 +166,12 @@ void Init(char* temp) {
                 }
             }
         }
-//        queue<string> temp_RP = RP;
-//        while (!temp_RP.empty()) {
-//            cout << temp_RP.front() << ' ';
-//            temp_RP.pop();
-//        }
-//        cout << endl;
+        //        queue<string> temp_RP = RP;
+        //        while (!temp_RP.empty()) {
+        //            cout << temp_RP.front() << ' ';
+        //            temp_RP.pop();
+        //        }
+        //        cout << endl;
     }
     while (!RP_sign.empty()) {
         if (RP_sign.top() != "(") {
@@ -178,11 +180,76 @@ void Init(char* temp) {
         RP_sign.pop();
     }
 
-    queue<string> temp1 = RP;
-    while (!temp1.empty()) {
-        cout << temp1.front() << ' ';
-        temp1.pop();
-    }
-    cout << endl;
+    return RP;
+
+    //    queue<string> temp1 = RP;
+    //    while (!temp1.empty()) {
+    //        cout << temp1.front() << ' ';
+    //        temp1.pop();
+    //    }
+    //    cout << endl;
 }
 
+size_t cal_num(const string& temp) {
+    if ((temp == "*") || (temp == "/") || (temp == "%") || (temp == "+") ||
+        (temp == "-") || (temp == "^"))
+        return 2;
+    if ((temp == "tan") || (temp == "sqrt") || (temp == "cos") ||
+        (temp == "sin"))
+        return 1;
+    return 0;
+}
+
+double Cal_RP(queue<string> RP) {
+    stack<double> value;
+    while (!RP.empty()) {
+        if (*RP.front().begin() >= '0' && *RP.front().begin() <= '9') {
+            value.push(stod(RP.front()));
+            RP.pop();
+        } else if (cal_num(RP.front()) == 2) {
+            double rhs = value.top();
+            value.pop();
+            double lhs = value.top();
+            value.pop();
+            if (RP.front() == "+") {
+                value.push(lhs + rhs);
+                RP.pop();
+            } else if (RP.front() == "-") {
+                value.push(lhs - rhs);
+                RP.pop();
+            } else if (RP.front() == "*") {
+                value.push(lhs * rhs);
+                RP.pop();
+            } else if (RP.front() == "/") {
+                value.push(lhs / rhs);
+                RP.pop();
+            } else if (RP.front() == "%") {
+                value.push((int)lhs % (int)rhs);
+                RP.pop();
+            } else if (RP.front() == "^") {
+                value.push(pow(lhs, rhs));
+                RP.pop();
+            }
+        } else if (cal_num(RP.front()) == 1) {
+            double rhs = value.top();
+            value.pop();
+            if (RP.front() == "tan") {
+                value.push(tan(rhs));
+                RP.pop();
+            } else if (RP.front() == "cos") {
+                value.push(cos(rhs));
+                RP.pop();
+            } else if (RP.front() == "sin") {
+                value.push(cos(rhs));
+                RP.pop();
+            } else if (RP.front() == "sqrt") {
+                value.push(sqrt(rhs));
+                RP.pop();
+            }
+        }
+        if (RP.empty() && value.size() == 1) {
+            break;
+        }
+    }
+    return value.top();
+}
