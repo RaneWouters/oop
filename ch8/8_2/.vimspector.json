@@ -1,0 +1,12 @@
+{
+  "configurations": {
+    "CodeLLDB": {
+      "adapter": "CodeLLDB",
+      "configuration": {
+        "request": "launch",
+        "program": "${workspaceRoot}/demo",
+        "stopAtEntry": true
+      }
+    }
+  }
+}
