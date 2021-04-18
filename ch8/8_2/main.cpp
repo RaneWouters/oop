@@ -7,21 +7,29 @@ using namespace std;
 
 int main() {
     char temp[100];
-//    temp[0] = '1';
-//    temp[1] = '2';
-//    temp[2] = '+';
-//    temp[3] = '(';
-//    temp[4] = 'c';
-//    temp[5] = 'o';
-//    temp[6] = 's';
-//    temp[7] = '(';
-//    temp[8] = '2';
-//    temp[9] = '*';
-//    temp[10] = 'p';
-//    temp[11] = 'i';
-//    temp[12] = ')';
-//    temp[13] = ')';
+//    temp[0] = '3';
+//    temp[1] = '-';
+//    temp[2] = '2';
+//    temp[3] = '*';
+//    temp[4] = '4';
+//    temp[5] = '+';
+//    temp[6] = '(';
+//    temp[7] = '6';
+//    temp[8] = '-';
+//    temp[9] = '1';
+//    temp[10] = ')';
+//    temp[11] = '/';
+//    temp[12] = '2';
+//    temp[13] = '+';
+//    temp[14] = '5';
 
+//    temp[0] = '(';
+//    temp[1] = '6';
+//    temp[2] = '-';
+//    temp[3] = '1';
+//    temp[4] = ')';
+//    temp[5] = '/';
+//    temp[6] = '2';
     cin >> temp;
     cout << Cal_RP(Init(temp)) << endl;
 

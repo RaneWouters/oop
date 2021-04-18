@@ -200,6 +200,7 @@ void MyVector<T>::show() {
         return;
     }
     for (size_t q = this->m_begin; q <= this->m_end; ++q) {
-        cout << *(this->m_arr + q) << endl;
+        cout << *(this->m_arr + q) << ' ';
     }
+    cout << endl;
 }

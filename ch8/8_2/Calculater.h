@@ -8,9 +8,9 @@
 #include <string>
 using namespace std;
 
-constexpr double PI = 3.14159265358979323846;
+const double PI = atan(1.0) * 4;
 
-int level(const string& temp) {
+double level(const string& temp) {
     if ((temp == "tan") || (temp == "sqrt") || (temp == "cos") ||
         (temp == "sin"))
         return 3;
@@ -18,7 +18,9 @@ int level(const string& temp) {
         return 2;
     if ((temp == "*") || (temp == "/") || (temp == "%"))
         return 1;
-    if ((temp == "+") || (temp == "-"))
+    if ((temp == "-"))
+        return 0.5;
+    if (temp == "+")
         return 0;
     return -1;
 }
@@ -131,10 +133,10 @@ queue<string> Init(char* temp) {
             }
         }
     }
-    //    for (int q = 0; q < string_loc; ++q) {
-    //        cout << middle[q] << endl;
-    //    }
-    //    cout << "string_loc" << string_loc << endl;
+    for (int q = 0; q < string_loc; ++q) {
+        cout << middle[q] << endl;
+    }
+    cout << "string_loc" << string_loc << endl;
 
     queue<string> RP;
     stack<string> RP_sign;
@@ -148,9 +150,12 @@ queue<string> Init(char* temp) {
             while (RP_sign.top() != "(") {
                 RP.push(RP_sign.top());
                 RP_sign.pop();
-                ++q;
+                //++q;
             }
             RP_sign.pop();
+            cout << endl;
+            cout << RP_sign.empty() << endl;
+            cout << endl;
         } else {
             if (RP_sign.empty()) {
                 RP_sign.push(middle[q]);
@@ -160,34 +165,36 @@ queue<string> Init(char* temp) {
                 } else if (level(middle[q]) > level(RP_sign.top())) {
                     RP_sign.push(middle[q]);
                 } else if (level(middle[q]) <= level(RP_sign.top())) {
-                    RP.push(RP_sign.top());
-                    RP_sign.pop();
+                    while (!RP_sign.empty() && (level(middle[q]) < level(RP_sign.top()))) {
+                        RP.push(RP_sign.top());
+                        RP_sign.pop();
+                    }
                     RP_sign.push(middle[q]);
                 }
             }
         }
-        //        queue<string> temp_RP = RP;
-        //        while (!temp_RP.empty()) {
-        //            cout << temp_RP.front() << ' ';
-        //            temp_RP.pop();
-        //        }
-        //        cout << endl;
     }
+
     while (!RP_sign.empty()) {
         if (RP_sign.top() != "(") {
             RP.push(RP_sign.top());
         }
         RP_sign.pop();
     }
-
-    return RP;
-
+    queue<string> temp1 = RP;
+    while (!temp1.empty()) {
+        cout << temp1.front() << ' ';
+        temp1.pop();
+    }
+    cout << endl;
     //    queue<string> temp1 = RP;
     //    while (!temp1.empty()) {
     //        cout << temp1.front() << ' ';
     //        temp1.pop();
     //    }
     //    cout << endl;
+
+    return RP;
 }
 
 size_t cal_num(const string& temp) {
@@ -240,7 +247,7 @@ double Cal_RP(queue<string> RP) {
                 value.push(cos(rhs));
                 RP.pop();
             } else if (RP.front() == "sin") {
-                value.push(cos(rhs));
+                value.push(sin(rhs));
                 RP.pop();
             } else if (RP.front() == "sqrt") {
                 value.push(sqrt(rhs));
