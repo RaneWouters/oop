@@ -1,6 +1,7 @@
 #ifndef _FINANCE_H_
 #define _FINANCE_H_
 
+#include <ctime>
 #include <iostream>
 #include <vector>
 using namespace std;

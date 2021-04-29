@@ -9,6 +9,7 @@ int main() {
     cout << oct << 300 << endl;
     cout << dec << 300 << endl;
     cout << hex << 300 << endl;
+    cout << setprecision(6) << 31.15926 << endl;
 
     cout << fixed << setprecision(6) << PI << endl;
     cout << fixed << setprecision(8) << PI << endl;
